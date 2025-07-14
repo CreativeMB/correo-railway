@@ -1,9 +1,9 @@
-# fly.toml app configuration file generated for correo-railway on 2025-07-14T14:18:49Z
+# fly.toml app configuration file generated for correo-railway-3ial6w on 2025-07-14T14:48:15Z
 #
 # See https://fly.io/docs/reference/configuration/ for information about how to use this file.
 #
 
-app = 'correo-railway'
+app = 'correo-railway-3ial6w'
 primary_region = 'bog'
 
 [build]
