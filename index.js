@@ -19,10 +19,15 @@ app.post("/correo", async (req, res) => {
   const titulo = decodeURIComponent(tituloCodificado.replace(/\+/g, " "));
 
   const mailOptions = {
-    from: '"Pedidos" <fulltvurl@gmail.com>',
-    to: "fulltvurl@gmail.com",
-    subject: `🎬 ${titulo}`,
-    text: `🔔 Activación pendiente\n\nSe ha registrado un nuevo pedido.\n🎬 Título: ${titulo}\nPor favor, verifica y activa la película en el sistema FullTV.`,
+     from: '"Pedidos" <fulltvurl@gmail.com>',
+  to: "fulltvurl@gmail.com",
+  subject: `🎬 ${titulo}`,
+  html: `
+    <p>🔔 <strong>Activación pendiente</strong></p>
+    <p>Se ha registrado un nuevo pedido.</p>
+    <p>🎬 <strong>Título:</strong> ${titulo}</p>
+    <p>Por favor, verifica y activa la película en el sistema FullTV.</p>
+  `,
   };
 
   try {
