@@ -15,7 +15,9 @@ const transporter = nodemailer.createTransport({
 });
 
 app.post("/correo", async (req, res) => {
-  const titulo = req.body.titulo || "Sin título";
+ const tituloCodificado = req.body.titulo || "Sin título";
+const titulo = decodeURIComponent(tituloCodificado.replace(/\+/g, " "));
+
 
   const mailOptions = {
     from: '"Pedidos" <fulltvurl@gmail.com>',
