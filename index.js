@@ -22,13 +22,8 @@ app.post("/correo", async (req, res) => {
      from: '"Pedidos" <fulltvurl@gmail.com>',
   to: "fulltvurl@gmail.com",
   subject: `🎬 ${titulo}`,
-  html: `
-    <p>🔔 <strong>Activación pendiente</strong></p>
-    <p>Se ha registrado un nuevo pedido.</p>
-    <p>🎬 <strong>Título:</strong> ${titulo}</p>
-    <p>Por favor, verifica y activa la película en el sistema FullTV.</p>
-  `,
-  };
+  text: `🔔 Activación pendiente\n\nSe ha registrado un nuevo pedido.\n🎬 Título: ${titulo}\nPor favor, verifica y activa la película en el sistema FullTV.`,
+};
 
   try {
     const info = await transporter.sendMail(mailOptions);
