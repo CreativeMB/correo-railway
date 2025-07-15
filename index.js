@@ -62,14 +62,19 @@ app.post("/correo", async (req, res) => {
 // ------------------ ELIMINAR USUARIO ------------------
 app.post("/eliminar-usuario", async (req, res) => {
   const { uid } = req.body;
+  console.log("🟡 Petición recibida para eliminar usuario:", uid);
+
   if (!uid) {
+    console.error("🔴 UID faltante");
     return res.status(400).json({ status: "error", mensaje: "Falta UID" });
   }
 
   try {
     const resultado = await eliminarUsuario(uid);
+    console.log("✅ Resultado:", resultado);
     res.json(resultado);
   } catch (e) {
+    console.error("🔥 Error eliminando usuario:", e);
     res.status(500).json({ status: "error", mensaje: e.message });
   }
 });
