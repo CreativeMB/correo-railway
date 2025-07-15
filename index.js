@@ -1,8 +1,9 @@
-// index.js
-const express = require("express");
-const nodemailer = require("nodemailer");
-const eliminarUsuario = require("./firebaseDelete");
-require("dotenv").config(); // por si usas .env
+import express from "express";
+import nodemailer from "nodemailer";
+import eliminarUsuario from "./firebaseDelete.js"; // 👈 asegúrate que el archivo también esté en ES module
+import dotenv from "dotenv";
+
+dotenv.config(); // Cargar variables desde .env
 
 const app = express();
 app.use(express.json());
