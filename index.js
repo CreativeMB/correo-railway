@@ -1,10 +1,13 @@
-import express from "express";
-import nodemailer from "nodemailer";
+// index.js
+const express = require("express");
+const nodemailer = require("nodemailer");
+const eliminarUsuario = require("./firebaseDelete");
+require("dotenv").config(); // por si usas .env
 
 const app = express();
 app.use(express.json());
 
-// Función para escapar caracteres HTML peligrosos
+// ------------------ CORREO ------------------
 function escapeHTML(str) {
   return str.replace(/[&<>'"]/g, (char) => {
     const chars = {
@@ -54,23 +57,23 @@ app.post("/correo", async (req, res) => {
   }
 });
 
-const express = require("express");
-const app = express();
-const PORT = process.env.PORT || 3000;
-
-// IMPORTANTE: ¡0.0.0.0 aquí!
-app.listen(PORT, "0.0.0.0", () => {
-  console.log(`🚀 Servidor corriendo en http://0.0.0.0:${PORT}`);
-});
-
-const eliminarUsuario = require("./firebaseDelete"); // importa el script
-
+// ------------------ ELIMINAR USUARIO ------------------
 app.post("/eliminar-usuario", async (req, res) => {
   const { uid } = req.body;
   if (!uid) {
     return res.status(400).json({ status: "error", mensaje: "Falta UID" });
   }
 
-  const resultado = await eliminarUsuario(uid);
-  res.json(resultado);
+  try {
+    const resultado = await eliminarUsuario(uid);
+    res.json(resultado);
+  } catch (e) {
+    res.status(500).json({ status: "error", mensaje: e.message });
+  }
+});
+
+// ------------------ LISTEN ------------------
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, "0.0.0.0", () => {
+  console.log(`🚀 Servidor corriendo en http://0.0.0.0:${PORT}`);
 });
