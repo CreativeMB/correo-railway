@@ -2,6 +2,7 @@ import express from "express";
 import nodemailer from "nodemailer";
 import eliminarUsuario from "./firebaseDelete.js"; // 👈 asegúrate que el archivo también esté en ES module
 import dotenv from "dotenv";
+import serviceAccount from "./credenciales.json" assert { type: "json" };
 
 dotenv.config(); // Cargar variables desde .env
 
