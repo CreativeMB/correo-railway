@@ -9,7 +9,7 @@ dotenv.config(); // Cargar variables desde .env
 const app = express();
 app.use(express.json());
 
-// ------------------ CORREO ------------------
+// Función para escapar caracteres HTML peligrosos
 function escapeHTML(str) {
   return str.replace(/[&<>'"]/g, (char) => {
     const chars = {
@@ -34,30 +34,32 @@ const transporter = nodemailer.createTransport({
 });
 
 app.post("/correo", async (req, res) => {
-  const tituloCodificado = req.body.titulo || "Sin título";
-  const titulo = decodeURIComponent(tituloCodificado.replace(/\+/g, " "));
+  const rawTitulo = req.body.titulo || "Sin título";
+  const titulo = escapeHTML(rawTitulo);
 
   const mailOptions = {
-     from: '"Pedidos" <fulltvurl@gmail.com>',
-  to: "fulltvurl@gmail.com",
-  subject: `🎬 ${titulo}`,
-  html: `
-    <p>🔔 <strong>Activación pendiente</strong></p>
-    <p>Se ha registrado un nuevo pedido.</p>
-    <p>🎬 <strong>Título:</strong> ${titulo}</p>
-    <p>Por favor, verifica y activa la película en el sistema FullTV.</p>
-  `,
-};
+    from: '"Pedidos" <fulltvurl@gmail.com>',
+    to: "fulltvurl@gmail.com",
+    subject: 🎬 ${titulo},
+    html: 
+      <p>🔔 <strong>Activación pendiente</strong></p>
+      <p>Se ha registrado un nuevo pedido.</p>
+      <p>🎬 <strong>Título:</strong> ${titulo}</p>
+      <p>Por favor, verifica y activa la película en el sistema FullTV.</p>
+    ,
+  };
 
   try {
     const info = await transporter.sendMail(mailOptions);
     console.log("✅ Correo enviado:", info.response);
-    res.json({ status: "ok", mensaje: `Correo enviado con el título: ${titulo}` });
+    res.json({ status: "ok", mensaje: Correo enviado con el título: ${titulo} });
   } catch (err) {
     console.error("❌ Error al enviar correo:", err);
     res.status(500).json({ status: "error", mensaje: "Falló el envío de correo" });
   }
 });
+
+
 
 // ------------------ ELIMINAR USUARIO ------------------
 app.post("/eliminar-usuario", async (req, res) => {
