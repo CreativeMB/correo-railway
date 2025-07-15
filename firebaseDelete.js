@@ -10,7 +10,7 @@ const firestore = admin.firestore();
 const realtimeDb = admin.database();
 const auth = admin.auth();
 
-async function eliminarUsuario(uid) {
+export default async function eliminarUsuario(uid) {
   try {
     // 1. Eliminar autenticación
     await auth.deleteUser(uid);
