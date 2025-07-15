@@ -67,9 +67,6 @@ const eliminarUsuario = require("./firebaseDelete"); // importa el script
 
 app.post("/eliminar-usuario", async (req, res) => {
   const { uid } = req.body;
-  
-  console.log("📥 Petición recibida para eliminar UID:", uid); // 👈 este log es clave
-
   if (!uid) {
     return res.status(400).json({ status: "error", mensaje: "Falta UID" });
   }
@@ -77,4 +74,3 @@ app.post("/eliminar-usuario", async (req, res) => {
   const resultado = await eliminarUsuario(uid);
   res.json(resultado);
 });
-
