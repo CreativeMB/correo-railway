@@ -58,3 +58,12 @@ const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`🚀 Servidor corriendo en http://localhost:${PORT}`);
 });
+const eliminarUsuario = require("./firebaseDelete"); // importa el script
+
+app.post("/eliminar-usuario", async (req, res) => {
+  const { uid } = req.body;
+  if (!uid) return res.status(400).json({ status: "error", mensaje: "Falta UID" });
+
+  const resultado = await eliminarUsuario(uid);
+  res.json(resultado);
+});
